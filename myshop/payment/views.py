@@ -50,3 +50,6 @@ def payment_process(request):
     
     else:
         return render(request, 'payment/process.html', locals())
+    
+def payment_completed(request):
+    return render(request, 'payment/completed.html')
