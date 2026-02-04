@@ -25,7 +25,7 @@ def payment_process(request):
         session_data = {
             'mode': 'payment',
             'client_reference_id': order.id,
-            'successful_url': success_url,
+            'success_url': success_url,
             'cancel_url': cancel_url,
             'line_items': []
         }
