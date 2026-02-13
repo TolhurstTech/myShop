@@ -30,5 +30,5 @@ class OrderAdmin(admin.ModelAdmin):
         'created',
         'updated'
     ]
-    list_filer = ['paid', 'created', 'updated']
+    list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
