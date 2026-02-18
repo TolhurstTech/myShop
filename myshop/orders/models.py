@@ -1,4 +1,4 @@
-# from django.conf import settings
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -26,7 +26,7 @@ class Order(models.Model):
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
     
-    """def get_stripe_url(self):
+    def get_stripe_url(self):
         if not self.stripe_id:
             # no payment associated
             return 'no payment'
@@ -37,7 +37,7 @@ class Order(models.Model):
             # Stripe path for real payments
             path = '/'
         return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
-    """
+    
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
