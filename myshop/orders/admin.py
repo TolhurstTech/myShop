@@ -4,11 +4,13 @@ from django.contrib import admin
 from django.http import HttpResponse
 from .models import Order, OrderItem
 from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 # Register your models here.
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     raw_id_fields = ['product']
+
 
 def order_payment(obj):
     url = obj.get_stripe_url()
@@ -17,6 +19,7 @@ def order_payment(obj):
         return mark_safe(html)
     return ''
 order_payment.short_description = 'Stripe payment'
+
 
 def export_to_csv(modeladmin, request, queryset):
     opts = modeladmin.model._meta
@@ -46,6 +49,11 @@ def export_to_csv(modeladmin, request, queryset):
 
 
 export_to_csv.short_description = 'Export to CSV'
+
+
+def order_detail(obj):
+    url = reverse('orders:admin_order_detail', args=[obj.id])
+    return mark_safe(f'<a href="{url}">View</a>')
 
 
 @admin.register(Order)
