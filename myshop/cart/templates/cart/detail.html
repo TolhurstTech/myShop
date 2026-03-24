@@ -8,7 +8,7 @@
 {% block content %}
     <h1>Your shopping cart</h1>
     <table class="cart">
-        <thread>
+        <thead>
             <tr>
                 <th>Image</th>
                 <th>Product</th>
@@ -17,7 +17,7 @@
                 <th>Unit Price</th>
                 <th>Price</th>
             </tr>
-        </thread>
+        </thead>
         <tbody>
             {% for item in cart %}
                 {% with product=item.product %}
