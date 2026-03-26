@@ -1,9 +1,10 @@
-from coupons.forms import CouponApplyForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
+from coupons.forms import CouponApplyForm
+from coupons.views import is_coupon_valid
 
 # Create your views here.
 @require_POST
@@ -20,6 +21,7 @@ def cart_add(request, product_id):
         )
     return redirect('cart:cart_detail')
 
+
 @require_POST
 def cart_remove(request, product_id):
     cart = Cart(request)
@@ -27,18 +29,30 @@ def cart_remove(request, product_id):
     cart.remove(product)
     return redirect('cart:cart_detail')
 
+
 def cart_detail(request):
     cart = Cart(request)
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(
             initial={'quantity': item['quantity'], 'override': True}
         )
-    coupon_apply_form = CouponApplyForm()
+    
+    # Validate coupon if one is applied
+    coupon_status = None
+    coupon_id = request.session.get('coupon_id')
+    if coupon_id:
+        coupon_status = is_coupon_valid(coupon_id)
+        if not coupon_status["is_valid"]:
+            request.session['coupon_id'] = None
+            # add message saying coupon expired or inactive
+
+    coupon_apply_form = CouponApplyForm() 
     return render(
         request,
         'cart/detail.html',
         {
             'cart': cart,
-            'coupon_apply_form': coupon_apply_form
+            'coupon_apply_form': coupon_apply_form,
+            'coupon_status': coupon_status
         }
     )
