@@ -65,6 +65,22 @@
                     </td>
                 </tr>
             {% endif %}
+            {% if messages %}
+                <tr>
+                    <td>
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">
+                                {{ message|safe }}
+                                <a href="#" class="close">x</a>
+                            </li>
+                        {% endfor %}
+                    </td>
+                    <td colspan="4"></td>
+                    <td class="num neg">
+                       
+                    </td>
+                </tr>
+            {% endif %}
             <tr class="total">
                 <td>Total</td>
                 <td colspan="4"></td>
