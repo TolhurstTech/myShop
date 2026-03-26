@@ -1,7 +1,9 @@
 from copy import deepcopy
 from coupons.models import Coupon
+from coupons.views import validate_coupon_by_id
 from decimal import Decimal
 from django.conf import settings
+from django.contrib import messages
 from shop.models import Product
 
 
@@ -18,6 +20,7 @@ class Cart:
         self.cart = cart
         # store current applied coupon
         self.coupon_id = self.session.get('coupon_id')
+        self.coupon_status = None
 
         # Validate coupon if one is applied
         if self.coupon_id:
@@ -26,7 +29,9 @@ class Cart:
                 # Remove invalid coupon
                 self.coupon_id = None
                 self.session['coupon_id'] = None
+                self.coupon_status = coupon_status
                 self.save()
+            
 
     def __iter__(self):
         """

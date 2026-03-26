@@ -22,7 +22,7 @@ def coupon_apply(request):
             # Stay on current page and show error
             messages.error(request, f"Coupon invalid: '{coupon_status["reason"]}'.")
             return redirect(request.META.get('HTTP_REFERER'))
-    # messages.error(request, f"Coupon invalid: '{coupon_status["reason"]}'.")
+    messages.error(request, f"Coupon invalid: '{coupon_status["reason"]}'.")
     return redirect(request.META.get('HTTP_REFERER'))
 
 # my own addition to make coupon validation easier and more detailed across the project
