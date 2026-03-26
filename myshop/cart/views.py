@@ -37,16 +37,6 @@ def cart_detail(request):
         item['update_quantity_form'] = CartAddProductForm(
             initial={'quantity': item['quantity'], 'override': True}
         )
-    
-    # Validate coupon if one is applied
-    coupon_status = None
-    coupon_id = request.session.get('coupon_id')
-    if coupon_id:
-        coupon_status = is_coupon_valid(coupon_id)
-        if not coupon_status["is_valid"]:
-            request.session['coupon_id'] = None
-            messages.error(request, f"Coupon invalid: {coupon_status['reason']}")
-            # add message saying coupon expired or inactive
 
     coupon_apply_form = CouponApplyForm() 
     return render(
@@ -54,7 +44,6 @@ def cart_detail(request):
         'cart/detail.html',
         {
             'cart': cart,
-            'coupon_apply_form': coupon_apply_form,
-            'coupon_status': coupon_status
+            'coupon_apply_form': coupon_apply_form
         }
     )

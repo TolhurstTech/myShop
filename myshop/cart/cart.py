@@ -19,6 +19,15 @@ class Cart:
         # store current applied coupon
         self.coupon_id = self.session.get('coupon_id')
 
+        # Validate coupon if one is applied
+        if self.coupon_id:
+            coupon_status = validate_coupon_by_id(self.coupon_id)
+            if not coupon_status['is_valid']:
+                # Remove invalid coupon
+                self.coupon_id = None
+                self.session['coupon_id'] = None
+                self.save()
+
     def __iter__(self):
         """
         Iterate over the items in the cart and get the products from the database.
