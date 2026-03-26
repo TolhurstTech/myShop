@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from shop.models import Product
@@ -44,6 +45,7 @@ def cart_detail(request):
         coupon_status = is_coupon_valid(coupon_id)
         if not coupon_status["is_valid"]:
             request.session['coupon_id'] = None
+            messages.error(request, f"Coupon invalid: {coupon_status['reason']}")
             # add message saying coupon expired or inactive
 
     coupon_apply_form = CouponApplyForm() 
