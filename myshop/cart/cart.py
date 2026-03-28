@@ -18,12 +18,14 @@ class Cart:
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
-        
-       # Validate coupon if one is applied
+        # store current applied coupon
+        self.coupon_id = self.session.get('coupon_id')
+
+        # Validate coupon if one is applied
         if self.coupon_id:
             coupon_status = validate_coupon_by_id(self.coupon_id)
             if not coupon_status['is_valid']:
-                # Remove invalid coupon and store reason in session
+                # Remove invalid coupon
                 self.coupon_id = None
                 self.session['coupon_id'] = None
                 self.session['coupon_removed_reason'] = coupon_status['reason']
