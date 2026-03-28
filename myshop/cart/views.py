@@ -33,11 +33,11 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-
-    print(f"DEBUG: coupon_status = {cart.coupon_status}")
-    # Show message if coupon was removed
-    if cart.coupon_status and not cart.coupon_status['is_valid']:
-        messages.error(request, f"Coupon removed: {cart.coupon_status['reason']}")
+        
+    # Show message if coupon was removed in a previous request
+    coupon_removed_reason = request.session.pop('coupon_removed_reason', None)
+    if coupon_removed_reason:
+        messages.error(request, f"Coupon removed: {coupon_removed_reason}")
 
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(
