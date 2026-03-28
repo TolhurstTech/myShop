@@ -33,15 +33,15 @@ def is_coupon_valid(coupon_id):
     try:
         coupon = Coupon.objects.get(code__iexact=coupon_id)
     except Coupon.DoesNotExist:
-        # add warning message
+        
         return {"is_valid": False, "reason": "Coupon not found"}
     
     if not (coupon.valid_from <= now <= coupon.valid_to):
-        # add warning message
+        
         return {"is_valid": False, "reason": f"Coupon expired. Valid until {coupon.valid_to.strftime('%d/%m/%Y %H:%M')}"}
     
     if not coupon.active:
-        # add warning message
+        
         return {"is_valid": False, "reason": "Coupon is inactive"}
     
     return {"is_valid": True, "coupon_id": coupon.id}

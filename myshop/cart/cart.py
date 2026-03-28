@@ -3,7 +3,6 @@ from coupons.models import Coupon
 from coupons.views import validate_coupon_by_id
 from decimal import Decimal
 from django.conf import settings
-from django.contrib import messages
 from shop.models import Product
 
 
