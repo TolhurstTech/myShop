@@ -19,7 +19,7 @@ def cart_add(request, product_id):
         cart.add(
             product=product,
             quantity=cd['quantity'],
-            override_quantity=cd['override']
+            override_quantity=cd['override'],
         )
     return redirect('cart:cart_detail')
 
@@ -47,21 +47,21 @@ def cart_detail(request):
 
     coupon_apply_form = CouponApplyForm() 
 
-    r = Recommender()
-    cart_products = [item['product'] for item in cart]
-    if(cart_products):
-        recommended_products = r.suggest_products_for(
-            cart_products, max_results=4
-        )
-    else:
-        recommended_products = []
+    #r = Recommender()
+    #cart_products = [item['product'] for item in cart]
+    #if(cart_products):
+    #    recommended_products = r.suggest_products_for(
+     #       cart_products, max_results=4
+      #  )
+    #else:
+     #   recommended_products = []
 
     return render(
         request,
         'cart/detail.html',
         {
             'cart': cart,
-            'coupon_apply_form': coupon_apply_form,
-            'recommended_products': recommended_products
+            'coupon_apply_form': coupon_apply_form
+            #'recommended_products': recommended_products
         }
     )
