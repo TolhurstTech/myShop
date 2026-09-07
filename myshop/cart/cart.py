@@ -1,3 +1,4 @@
+from copy import copy
 from copy import deepcopy
 from coupons.models import Coupon
 from coupons.views import validate_coupon_by_id
@@ -38,7 +39,7 @@ class Cart:
         product_ids = self.cart.keys()
         # get the product objects and add them to the cart
         products = Product.objects.filter(id__in=product_ids)
-        cart = deepcopy(self.cart)
+        cart = self.cart.copy()
         for product in products:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
