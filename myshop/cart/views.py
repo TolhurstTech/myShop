@@ -46,7 +46,7 @@ def cart_detail(request):
         item['update_quantity_form'] = CartAddProductForm(
             initial={'quantity': item['quantity'], 'override': True}
         )
-    cart_items.append(item)
+        cart_items.append(item)
 
     coupon_apply_form = CouponApplyForm() 
 
