@@ -40,12 +40,6 @@ def cart_detail(request):
     if coupon_removed_reason:
         messages.error(request, f"Coupon removed: {coupon_removed_reason}")
 
-    # switched for next block to test fixing messages for coupons flow
-    #for item in cart:
-     #   item['update_quantity_form'] = CartAddProductForm(
-    #        initial={'quantity': item['quantity'], 'override': True}
-    #    )
-
     cart_items = []
 
     for item in cart:
@@ -56,15 +50,15 @@ def cart_detail(request):
 
     coupon_apply_form = CouponApplyForm() 
 
-    # removed to test why qty dropdown in cart disappeared re-add when fixed
-    #r = Recommender()
-    #cart_products = [item['product'] for item in cart]
-    #if(cart_products):
-    #    recommended_products = r.suggest_products_for(
-     #       cart_products, max_results=4
-      #  )
-    #else:
-     #   recommended_products = []
+    
+    r = Recommender()
+    cart_products = [item['product'] for item in cart]
+    if(cart_products):
+        recommended_products = r.suggest_products_for(
+            cart_products, max_results=4
+        )
+    else:
+        recommended_products = []
 
     return render(
         request,
@@ -73,6 +67,6 @@ def cart_detail(request):
             'cart': cart_items,
             'cart_obj': cart,
             'coupon_apply_form': coupon_apply_form
-            #'recommended_products': recommended_products
+            'recommended_products': recommended_products
         }
     )
