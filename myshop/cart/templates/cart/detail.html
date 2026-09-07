@@ -52,16 +52,16 @@
                 <tr class="subtotal">
                     <td>Subtotal</td>
                     <td colspan="4"></td>
-                    <td class="num">£{{ cart.get_total_price|floatformat:2 }}</td>
+                    <td class="num">£{{ cart_obj.get_total_price|floatformat:2 }}</td>
                 </tr>
                 <tr>
                     <td>
-                        "{{ cart.coupon.code }}" coupon applied!
-                        ({{ cart.coupon.discount }}% off)
+                        "{{ cart_obj.coupon.code }}" coupon applied!
+                        ({{ cart_obj.coupon.discount }}% off)
                     </td>
                     <td colspan="4"></td>
                     <td class="num neg">
-                        - £{{ cart.get_discount|floatformat:2 }}
+                        - £{{ cart_obj.get_discount|floatformat:2 }}
                     </td>
                 </tr>
             {% endif %}
@@ -69,7 +69,7 @@
                 <td>Total</td>
                 <td colspan="4"></td>
                 <td class="num">
-                    £{{ cart.get_total_price_after_discount|floatformat:2 }}
+                    £{{ cart_obj.get_total_price_after_discount|floatformat:2 }}
                 </td>
             </tr>
         </tbody>
