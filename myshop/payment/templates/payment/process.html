@@ -31,7 +31,7 @@
             {% if order.coupon %}
                 <tr class="subtotal">
                     <td>Subtotal</td>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <td class="num">
                         £{{ order.get_total_cost_before_discount|floatformat:2 }}
                     </td>
@@ -41,14 +41,14 @@
                         "{{ order.coupon.code }}" coupon applied!
                         ({{ order.discount }}% off!)
                     </td>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                     <td class="num neg">
                         - £{{ order.get_discount|floatformat:2 }}
                     </td>
                 </tr>
             {% endif %}
             <tr class="total">
-                <td colspan="3">Total</td>
+                <td colspan="4">Total</td>
                 <td class="num">£{{ order.get_total_cost|floatformat:2 }}</td>
             </tr>
         </tbody>
