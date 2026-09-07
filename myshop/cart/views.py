@@ -70,7 +70,7 @@ def cart_detail(request):
         request,
         'cart/detail.html',
         {
-            'cart': cart,
+            'cart': cart_items,
             'cart_obj': cart,
             'coupon_apply_form': coupon_apply_form
             #'recommended_products': recommended_products
